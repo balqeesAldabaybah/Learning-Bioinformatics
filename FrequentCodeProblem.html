@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<pre>
+    1.2 Hidden Messages in the Replication Origin
+    
+    Given a map dict, we can access the value associated with a key key using the notation dict[key]. 
+    In the case of a frequency table called freq, we can access the value associated with some key string pattern 
+    using the notation freq[pattern]. The following pseudocode function takes a string text and an integer k as 
+    input and returns their frequency table as a map of string keys to integer values.
+
+    Text = "GGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAGGACATCCCGCAGTCCTCCGGACATCCCGGGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTACAGTCCTCCACCCGTGCGCAGTCCTCCACCCGTGCGACCCGTGCGCAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGCAGTCCTCCACCCGCTATCAAAAAGCAACCCGCTAACCCGTGCGACCCGTGCGGGACATCCCGCAGTCCTCCGGACATCCCGCAGTCCTCCTCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTAGGACATCCCGCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGTGCGCAGTCCTCCCAGTCCTCCTCAAAAAGCAACCCGTGCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGGGACATCCCGGGACATCCCGACCCGCTATCAAAAAGCATCAAAAAGCAACCCGTGCGGGACATCCCGACCCGCTACAGTCCTCCCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGCTACAGTCCTCCGGACATCCCGACCCGTGCGGGACATCCCGACCCGCTAACCCGTGCGTCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAACCCGTGCGGGACATCCCGACCCGTGCGTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGGGACATCCCGACCCGTGCGCAGTCCTCCGGACATCCCGTCAAAAAGCATCAAAAAGCAGGACATCCCGGGACATCCCGTCAAAAAGCA"
+    k = 13
+            FrequencyTable(Text, k)
+                freqMap ← empty map
+                n ← |Text|
+                for i ← 0 to n − k
+                    Pattern ← Text(i, k)
+                    if freqMap[Pattern] doesn't exist
+                        freqMap[Pattern]← 1
+                    else
+                    freqMap[pattern] ←freqMap[pattern]+1 
+                return freqMap
+            
+        <hr>
+            Sample Input:
+
+            Text : ACGTTTCACGTTTTACGG
+            K: 3
+            <hr>
+            Sample Output:
+
+
+           
+</pre>
+<button onclick="FrequentTable()">Run Frequent Table for the above data</button>
+<p id="result"> </p>
+
+<body>
+    <script>
+        Text = "GGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAGGACATCCCGCAGTCCTCCGGACATCCCGGGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTACAGTCCTCCACCCGTGCGCAGTCCTCCACCCGTGCGACCCGTGCGCAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGCAGTCCTCCACCCGCTATCAAAAAGCAACCCGCTAACCCGTGCGACCCGTGCGGGACATCCCGCAGTCCTCCGGACATCCCGCAGTCCTCCTCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTAGGACATCCCGCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGTGCGCAGTCCTCCCAGTCCTCCTCAAAAAGCAACCCGTGCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGGGACATCCCGGGACATCCCGACCCGCTATCAAAAAGCATCAAAAAGCAACCCGTGCGGGACATCCCGACCCGCTACAGTCCTCCCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGCTACAGTCCTCCGGACATCCCGACCCGTGCGGGACATCCCGACCCGCTAACCCGTGCGTCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAACCCGTGCGGGACATCCCGACCCGTGCGTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGGGACATCCCGACCCGTGCGCAGTCCTCCGGACATCCCGTCAAAAAGCATCAAAAAGCAGGACATCCCGGGACATCCCGTCAAAAAGCA"
+        k = 13
+        // console.log( (Text,k))
+        function FrequentTable() {
+            function mapCons(pattern, f) {
+                this.pattern = pattern
+                this.frequent = f
+            }
+            map = new Array()
+            textLen = Text.length
+            for (var i = 0; i < textLen - k; i++) {
+                pattern = Text.substring(i, i + k)
+                var index = isExist(map, pattern)
+               // console.log(index)
+                if (index == -1) {
+                    map.push(new mapCons(pattern, 1))
+                }
+                else {
+                    map[index].frequent++
+                }
+            }
+
+           string = "<table border='1'>"
+           for(var x=0;x<map.length; x++){
+               string += "<tr>"
+                for(i in map[x]){
+                    string += "<td>"+map[x][i] + "</td>"
+                }
+                string +="</tr>"
+           }
+           string +="</table>"
+        //   console.log(string)
+           document.getElementById("result").innerHTML = string 
+        }
+
+        function isExist(map, pattern) {
+            for (i = 0; i < map.length; i++) {
+                if (map[i].pattern == pattern)
+                    return i
+            }
+            return -1
+        }
+
+
+    </script>
+</body>
+
+</html>

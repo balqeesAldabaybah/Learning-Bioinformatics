@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<pre>
+    1.3 Some Hidden Messages are More Surprising than Others
+
+    Given a nucleotide p, we denote its complementary nucleotide as p*. 
+    The reverse complement of a string Pattern = p1 … pn is the string Patternrc = pn* … p1* formed by taking the 
+    complement of each nucleotide in Pattern, then reversing the resulting string. We will need the solution to 
+    the following problem throughout this chapter:
+
+    Reverse Complement Problem: Find the reverse complement of a DNA string.
+
+    Input: A DNA string Pattern.
+    Output: Patternrc , the reverse complement of Pattern.
+            
+        <hr>
+            Sample Input:
+            AAAACCCGGT
+            <hr>
+            Sample Output:
+            ACCGGGTTTT
+
+
+           
+</pre>
+<button onclick="ReversePattern()">Run Reverse Pattern</button>
+<p id="result"> </p>
+
+<body>
+    <script>
+        function ReversePattern(){
+            strand = "AAAACCCGGT"
+            reverse = ""
+            for (var i = strand.length - 1; i >= 0; i--) {
+                if (strand[i] == 'A')
+                    reverse += "T"
+                if (strand[i] == 'T')
+                    reverse += "A"
+                if (strand[i] == 'C')
+                    reverse += "G"
+                if (strand[i] == 'G')
+                    reverse += "C"
+            }
+           document.getElementById("result").innerHTML = reverse
+        }
+
+
+
+    </script>
+</body>
+
+</html>

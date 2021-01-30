@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<pre>
+    1.3 Some Hidden Messages are More Surprising than Others
+
+    Pattern Matching Problem: Find all occurrences of a pattern in a string.
+
+    Input: Strings Pattern and Genome.
+    Output: All starting positions in Genome where Pattern appears as a substring.
+            
+        <hr>
+            Sample Input:
+            Pattern: ATAT
+            Genome:  GATATATGCATATACTT
+            <hr>
+            Sample Output:
+            positions: 1 3 9
+
+
+           
+</pre>
+<button onclick="positions()">Run pattern matching</button>
+<p id="result"> </p>
+
+<body>
+    <script>
+        function positions() {
+            var genome = "GATATATGCATATACTT"
+            var pattern = "ATAT"
+
+            //document.write(genome.length)
+            var textLen = genome.length
+            var patternLen = pattern.length
+            // console.log(textLen + " "+patternLen )
+            var offset = textLen - patternLen
+            cnt = ""
+            // console.log(offset)
+            for (var i = 0; i <= offset; i++) {
+                // console.log(genome.substring(i, i + patternLen) == pattern)
+                // console.log(pattern)
+                if (genome.substring(i, i + patternLen) == pattern) {
+                    console.log(true)
+                    cnt += (i + " ")
+                }
+            }
+            document.getElementById("result").innerHTML = cnt
+        }
+    </script>
+</body>
+
+</html>

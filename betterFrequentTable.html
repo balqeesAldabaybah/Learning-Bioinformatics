@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<pre>
+    1.2 Hidden Messages in the Replication Origin
+
+
+   Once we have built the frequency table for a given Text and k, we can find all frequent k-mers if we determine 
+   the maximum value in the table, and then identify the keys of the frequency table achieving this value,
+    appending each one that we find to a growing list. We are now ready to write a function BetterFrequentWords 
+    to solve the Frequent Words Problem.  This function relies on a function MaxMap that takes a map of strings 
+    to integers as an input and returns the maximum value of this map as output. 
+
+    Text = "GGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAGGACATCCCGCAGTCCTCCGGACATCCCGGGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTACAGTCCTCCACCCGTGCGCAGTCCTCCACCCGTGCGACCCGTGCGCAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGCAGTCCTCCACCCGCTATCAAAAAGCAACCCGCTAACCCGTGCGACCCGTGCGGGACATCCCGCAGTCCTCCGGACATCCCGCAGTCCTCCTCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTAGGACATCCCGCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGTGCGCAGTCCTCCCAGTCCTCCTCAAAAAGCAACCCGTGCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGGGACATCCCGGGACATCCCGACCCGCTATCAAAAAGCATCAAAAAGCAACCCGTGCGGGACATCCCGACCCGCTACAGTCCTCCCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGCTACAGTCCTCCGGACATCCCGACCCGTGCGGGACATCCCGACCCGCTAACCCGTGCGTCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAACCCGTGCGGGACATCCCGACCCGTGCGTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGGGACATCCCGACCCGTGCGCAGTCCTCCGGACATCCCGTCAAAAAGCATCAAAAAGCAGGACATCCCGGGACATCCCGTCAAAAAGCA"
+    k = 13
+            FrequencyTable(Text, k)
+                freqMap ← empty map
+                n ← |Text|
+                for i ← 0 to n − k
+                    Pattern ← Text(i, k)
+                    if freqMap[Pattern] doesn't exist
+                        freqMap[Pattern]← 1
+                    else
+                    freqMap[pattern] ←freqMap[pattern]+1 
+                return freqMap
+
+    
+     Input: A string Text and an integer k.
+     Output: All most frequent k-mers in Text.
+            
+        <hr>
+            Sample Input:
+
+            Text : ACGTTGCATGTCGCATGATGCATGAGAGCT
+            K: 4
+            <hr>
+            Sample Output:
+
+            CATG GCAT
+
+           
+</pre>
+<button onclick="betterFrequentWords()">Run Better Frequent Words for the above data</button>
+<p id="result"> </p>
+
+<body>
+    <script>
+        Text = "GGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAGGACATCCCGCAGTCCTCCGGACATCCCGGGACATCCCGACCCGTGCGACCCGCTAACCCGCTATCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTACAGTCCTCCACCCGTGCGCAGTCCTCCACCCGTGCGACCCGTGCGCAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCACCCGCTATCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGCAGTCCTCCACCCGCTATCAAAAAGCAACCCGCTAACCCGTGCGACCCGTGCGGGACATCCCGCAGTCCTCCGGACATCCCGCAGTCCTCCTCAAAAAGCAACCCGTGCGGGACATCCCGCAGTCCTCCACCCGCTAGGACATCCCGCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGTGCGCAGTCCTCCCAGTCCTCCTCAAAAAGCAACCCGTGCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGACCCGTGCGGGACATCCCGGGACATCCCGGGACATCCCGACCCGCTATCAAAAAGCATCAAAAAGCAACCCGTGCGGGACATCCCGACCCGCTACAGTCCTCCCAGTCCTCCCAGTCCTCCCAGTCCTCCACCCGCTACAGTCCTCCGGACATCCCGACCCGTGCGGGACATCCCGACCCGCTAACCCGTGCGTCAAAAAGCACAGTCCTCCTCAAAAAGCAACCCGCTAACCCGCTAACCCGTGCGGGACATCCCGACCCGTGCGTCAAAAAGCAACCCGCTAACCCGCTAGGACATCCCGGGACATCCCGACCCGTGCGCAGTCCTCCGGACATCCCGTCAAAAAGCATCAAAAAGCAGGACATCCCGGGACATCCCGTCAAAAAGCA"
+        k = 13
+        function betterFrequentWords(Text, k) {
+            var maxPattern = new Array();
+            var maxFreq = 0;
+            map = FrequentTable(Text, k)
+            for (var i = 0; i < map.length; i++) {
+                if (map[i].frequent > maxFreq)
+                    maxFreq = map[i].frequent
+            }
+
+            for (var i = 0; i < map.length; i++) {
+                if (map[i].frequent == maxFreq)
+                    maxPattern.push(map[i].pattern)
+            }
+
+            string = "<table border='1'>"
+            for (var x = 0; x < maxPattern.length; x++) {
+                string += "<tr>"
+                    string += "<td>" + maxPattern[x] + "</td>"      
+                string += "</tr>"
+            }
+            string += "</table>"
+             //  console.log(maxPattern)
+            document.getElementById("result").innerHTML = string
+            return maxPattern
+        }
+        // console.log( (Text,k))
+        function FrequentTable() {
+            function mapCons(pattern, f) {
+                this.pattern = pattern
+                this.frequent = f
+            }
+            map = new Array()
+            textLen = Text.length
+            for (var i = 0; i < textLen - k; i++) {
+                pattern = Text.substring(i, i + k)
+                var index = isExist(map, pattern)
+                // console.log(index)
+                if (index == -1) {
+                    map.push(new mapCons(pattern, 1))
+                }
+                else {
+                    map[index].frequent++
+                }
+            }
+            return map;
+        }
+
+        function isExist(map, pattern) {
+            for (i = 0; i < map.length; i++) {
+                if (map[i].pattern == pattern)
+                    return i
+            }
+            return -1
+        }
+
+
+    </script>
+</body>
+
+</html>
